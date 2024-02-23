@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rumah;
+use App\Models\Pembeli;
 use App\Models\Pesanan;
 use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
+use Illuminate\Http\Request;
 
 class PesananController extends Controller
 {
@@ -13,7 +16,14 @@ class PesananController extends Controller
      */
     public function index()
     {
-        return view("Pemesanan/pemesanan");
+        $pembeli = Pembeli::all();
+        $rumah = Rumah::all();
+        $pesanan = Pesanan::all();
+        return view('Pemesanan/pemesanan', [
+            'pembeli' => $pembeli,
+            'rumah' => $rumah,
+            'pesanan' => $pesanan
+        ]);
     }
 
     /**
@@ -27,9 +37,17 @@ class PesananController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePesananRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'id_pesanan' => 'required|unique:pesanans',
+            'nik' => 'required',
+            'kode_rumah' => 'required',
+            'jumlah' => 'required|numeric',
+            'status' => 'required|string'
+        ]);
+        Pesanan::create($validated);
+        return redirect('/pemesanan')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
