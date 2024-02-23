@@ -83,8 +83,9 @@ class PesananController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pesanan $pesanan)
+    public function destroy($id)
     {
-        //
+        Pesanan::destroy($id);
+        return redirect('/pemesanan')->with('delete', 'Data Berhasil Dihapus');
     }
 }

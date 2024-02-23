@@ -30,7 +30,7 @@
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
-                                    <th colspan="200">No Pesanan</th>
+                                    <th>No Pesanan</th>
                                     <th>Nama Pembeli</th>
                                     <th>Nama Rumah</th>
                                     <th>Jumlah Pesanan</th>
@@ -49,12 +49,11 @@
                                         <td>
                                             <button type="button" data-bs-toggle="modal"
                                                 data-bs-target='#editModal{{ $item->id_pesanan }}'
-                                                class="btn btn-outline-warning" role="button"><i class="fas fa-pencil"></i>
-                                                Edit</button>
+                                                class="btn btn-outline-warning" role="button"><i
+                                                    class="fas fa-pencil"></i></button>
                                             <button class="btn btn-outline-danger" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal{{ $item->id_pesanan }}"><i
-                                                    class="fas fa-trash"></i>
-                                                Hapus</button>
+                                                    class="fas fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -66,4 +65,5 @@
     </main>
     @include('Pemesanan.modals.create')
     @include('Pemesanan.modals.update')
+    @include('Pemesanan.modals.delete')
 @endsection

@@ -13,7 +13,7 @@ class KreditController extends Controller
      */
     public function index()
     {
-        //
+        return "hello world";
     }
 
     /**

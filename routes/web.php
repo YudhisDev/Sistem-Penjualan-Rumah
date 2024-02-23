@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KreditController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RumahController;
@@ -24,3 +25,4 @@ Route::get('/', [PembeliController::class, 'dashboard']);
 Route::resource('/pembeli', PembeliController::class);
 Route::resource('/rumah', RumahController::class);
 Route::resource('/pemesanan', PesananController::class);
+Route::resource('/kredit', KreditController::class);
