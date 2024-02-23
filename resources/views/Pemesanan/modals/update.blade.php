@@ -34,10 +34,13 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="kode_rumah" class="form-label">Rumah Pesanan</label>
-                            <input type="text" name="kode_rumah"
-                                class="form-control @error('kode_rumah') is-invalid @enderror" id="kode_rumah"
+                            <label for="x" class="form-label">Rumah Pesanan</label>
+                            <input type="text" name="x"
+                                class="form-control @error('kode_rumah') is-invalid @enderror" id="x"
                                 value="{{ $value->rumah->nama_rumah }}" readonly>
+                            <input type="hidden" name="kode_rumah"
+                                class="form-control @error('kode_rumah') is-invalid @enderror" id="kode_rumah"
+                                value="{{ $value->kode_rumah }}" hidden>
                             @error('kode_rumah')
                                 <div class="invalid-feedback">
                                     {{ $message }}

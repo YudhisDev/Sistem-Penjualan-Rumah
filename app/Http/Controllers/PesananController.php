@@ -88,6 +88,19 @@ class PesananController extends Controller
      */
     public function update(Request $request, Pesanan $pesanan)
     {
+        $pesanan = Pesanan::find($request->id_pesanan);
+        $data = Rumah::find($request->kode_rumah);
+        $available = $data->available;
+        $jumlah = $pesanan->jumlah;
+
+        if ($jumlah > $request->jumlah) {
+            $num = $jumlah - $request->jumlah;
+            $total = $available + $num;
+        } else {
+            $num = $request->jumlah - $jumlah;
+            $total = $available - $num;
+        }
+        Rumah::where('kode_rumah', $request->kode_rumah)->update(['available' => $total]);
         $rules = [
             'jumlah' => 'required|numeric',
             'status' => 'required|string'
