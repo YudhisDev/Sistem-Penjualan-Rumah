@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Rumah;
 use App\Models\Pembeli;
 use App\Models\Pesanan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
-use Illuminate\Http\Request;
 
 class PesananController extends Controller
 {
@@ -40,14 +42,29 @@ class PesananController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_pesanan' => 'required|unique:pesanans',
             'nik' => 'required',
             'kode_rumah' => 'required',
             'jumlah' => 'required|numeric',
             'status' => 'required|string'
         ]);
-        Pesanan::create($validated);
-        return redirect('/pemesanan')->with('success', 'Data Berhasil Ditambahkan');
+        $generated = $validated['nik'] . $validated['kode_rumah'];
+        $validated['id_pesanan'] = $generated;
+        $filter = Pesanan::all();
+        $number = 0;
+        foreach ($filter as $item) {
+            if ($item->id_pesanan == $validated['id_pesanan']) {
+                $number++;
+            }
+        }
+        if ($number > 0) {
+            return redirect('/pemesanan')->with('delete', 'Data Sudah Ada');
+        } else {
+            $available = Rumah::where('kode_rumah', $validated['kode_rumah'])->value('available');
+            $rest = $available - $validated['jumlah'];
+            Rumah::where('kode_rumah', $validated['kode_rumah'])->update(['available' => $rest]);
+            Pesanan::create($validated);
+            return redirect('/pemesanan')->with('success', 'Data Berhasil Ditambahkan');
+        }
     }
 
     /**
@@ -85,6 +102,17 @@ class PesananController extends Controller
      */
     public function destroy($id)
     {
+        // Mengambil kode rumah
+        $data = Pesanan::find($id);
+        $code = $data->kode_rumah;
+        // Mengambil property available
+        $code_property = Rumah::find($code);
+        $available_property = $code_property->available;
+        // Total available after deletion
+        $count = $data->jumlah;
+        $rest = $available_property + $count;
+        Rumah::where('kode_rumah', $code)->update(['available' => $rest]);
+
         Pesanan::destroy($id);
         return redirect('/pemesanan')->with('delete', 'Data Berhasil Dihapus');
     }
