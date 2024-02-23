@@ -69,9 +69,15 @@ class PesananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePesananRequest $request, Pesanan $pesanan)
+    public function update(Request $request, Pesanan $pesanan)
     {
-        //
+        $rules = [
+            'jumlah' => 'required|numeric',
+            'status' => 'required|string'
+        ];
+        $validated = $request->validate($rules);
+        Pesanan::where('id_pesanan', $request->id_pesanan)->update($validated);
+        return redirect('/pemesanan')->with('edit', 'Data Berhasil Diubah');
     }
 
     /**
