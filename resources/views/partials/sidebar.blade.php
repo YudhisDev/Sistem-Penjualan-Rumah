@@ -19,6 +19,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                     Pemesanan
                 </a>
+                <a class="nav-link" href="/kredit">
+                    <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+                    Data Cicilan
+                </a>
                 <a class="nav-link" href="/transaksi">
                     <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                     Transaksi
