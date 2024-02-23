@@ -10,17 +10,6 @@
                 <form action="/pemesanan" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="id_pesanan" class="form-label">Kode Pemesanan</label>
-                        <input type="text" name="id_pesanan"
-                            class="form-control @error('id_pesanan') is-invalid @enderror" id="id_pesanan"
-                            placeholder="Contoh: 12">
-                        @error('id_pesanan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
                         <label for="nik" class="form-label">Nama Pemesan</label>
                         <select name="nik" class="form-select @error('nik') is-invalid @enderror"
                             aria-label="Default select example">
