@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RumahController;
 use App\Http\Controllers\KreditController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PesananController;
-use App\Http\Controllers\RumahController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PembelianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,4 @@ Route::resource('/pembeli', PembeliController::class);
 Route::resource('/rumah', RumahController::class);
 Route::resource('/pemesanan', PesananController::class);
 Route::resource('/kredit', KreditController::class);
+Route::resource('/transaksi', PembelianController::class);

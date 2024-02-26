@@ -95,3 +95,10 @@
         });
     </script>
 @endif
+@if (count($errors) > 0)
+    <script>
+        $(document).ready(function() {
+            $('#createModal').modal('show');
+        });
+    </script>
+@endif
